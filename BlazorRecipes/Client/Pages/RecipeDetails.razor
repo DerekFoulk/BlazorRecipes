@@ -1,0 +1,28 @@
+﻿@page "/recipe/{Id:int}"
+@using BlazorRecipes.Shared.Recipes
+
+@if (Recipe == null)
+{
+    <Spinner />
+}
+else
+{
+    <h1>@Recipe.Title</h1>
+
+    <p>@Recipe.Description</p>
+
+
+
+    @Recipe.Image
+
+    @Recipe.Details
+
+    @Recipe.Ingredients
+
+    @Recipe.Instructions
+}
+
+@code {
+    [Parameter, EditorRequired]
+    public Recipe? Recipe { get; set; }
+}

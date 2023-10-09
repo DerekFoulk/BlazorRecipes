@@ -26,6 +26,7 @@ namespace BlazorRecipes.Server.Controllers
                 // Grilled Cheese Sandwich
                 new()
                 {
+                    Id = 0,
                     Title = "Grilled Cheese Sandwich",
                     Description = "Learn how to make a grilled cheese sandwich in a nonstick pan with buttered bread and American Cheddar for a classic hot sandwich.",
                     Image = "https://placehold.co/600x400?text=Grilled+Cheese+Sandwich",
@@ -66,6 +67,7 @@ namespace BlazorRecipes.Server.Controllers
                 // To Die For Fettuccine Alfredo
                 new()
                 {
+                    Id = 1,
                     Title = "To Die For Fettuccine Alfredo",
                     Description = "I created this fettuccine Alfredo by modifying my mother's recipe. I get nothing but rave reviews when I make this dish. My boyfriend is a fettuccine Alfredo connoisseur, and he scrapes the pan every time. I must warn you, this recipe is not for the health-conscious!",
                     Image = "https://placehold.co/600x400?text=To+Die+For+Fettuccine+Alfredo",
