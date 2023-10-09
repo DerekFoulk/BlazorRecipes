@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRecipes.Server", "BlazorRecipes\Server\BlazorRecipes.Server.csproj", "{EB8EFDCB-7DB7-4D2D-A4C1-A5EAE2EA614B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRecipes.Server", "BlazorRecipes\Server\BlazorRecipes.Server.csproj", "{EB8EFDCB-7DB7-4D2D-A4C1-A5EAE2EA614B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRecipes.Client", "BlazorRecipes\Client\BlazorRecipes.Client.csproj", "{2A601942-3635-4267-9503-19282E359276}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRecipes.Client", "BlazorRecipes\Client\BlazorRecipes.Client.csproj", "{2A601942-3635-4267-9503-19282E359276}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRecipes.Shared", "BlazorRecipes\Shared\BlazorRecipes.Shared.csproj", "{A2E4D699-4D24-41B0-8D5A-5B5C1A3C2F0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRecipes.Shared", "BlazorRecipes\Shared\BlazorRecipes.Shared.csproj", "{A2E4D699-4D24-41B0-8D5A-5B5C1A3C2F0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
