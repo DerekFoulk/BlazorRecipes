@@ -12,11 +12,20 @@ namespace BlazorRecipes.Client.Services
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<Recipe>?> GetAllRecipesAsync()
+        public async Task<IEnumerable<Recipe>> GetAllRecipesAsync()
         {
-            var recipes = await _httpClient.GetFromJsonAsync<Recipe[]>("Recipes");
+            var recipes = await _httpClient.GetFromJsonAsync<Recipe[]>("Recipes") ?? Array.Empty<Recipe>();
 
             return recipes;
+        }
+
+        public async Task<Recipe?> GetRecipeById(int recipeId)
+        {
+            var recipes = await _httpClient.GetFromJsonAsync<Recipe[]>("Recipes") ?? Array.Empty<Recipe>();
+
+            var recipe = recipes.SingleOrDefault(x => x.Id == recipeId);
+
+            return recipe;
         }
     }
 }

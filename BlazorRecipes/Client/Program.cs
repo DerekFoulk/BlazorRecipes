@@ -1,4 +1,5 @@
 using BlazorRecipes.Client;
+using BlazorRecipes.Client.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -18,5 +19,7 @@ builder.Services.AddMsalAuthentication(options =>
     builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
     options.ProviderOptions.DefaultAccessTokenScopes.Add(builder.Configuration.GetSection("ServerApi")["Scopes"]);
 });
+
+builder.Services.AddScoped<IRecipeService, RecipeService>();
 
 await builder.Build().RunAsync();

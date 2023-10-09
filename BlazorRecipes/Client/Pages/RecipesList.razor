@@ -2,8 +2,9 @@
 @using BlazorRecipes.Shared.Recipes
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using BlazorRecipes.Client.Services
 @attribute [Authorize]
-@inject HttpClient Http
+@inject IRecipeService RecipeService
 
 <PageTitle>Recipes</PageTitle>
 
@@ -34,7 +35,9 @@ else
     {
         try
         {
-            recipes = await Http.GetFromJsonAsync<Recipe[]>("Recipes");
+            var allRecipes = await RecipeService.GetAllRecipesAsync();
+
+            recipes = allRecipes.ToArray();
         }
         catch (AccessTokenNotAvailableException exception)
         {

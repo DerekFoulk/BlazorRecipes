@@ -1,5 +1,9 @@
 ﻿@page "/recipe/{Id:int}"
 @using BlazorRecipes.Shared.Recipes
+@using BlazorRecipes.Client.Services
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@inject IRecipeService RecipeService
 
 @if (recipe == null)
 {
@@ -28,9 +32,17 @@ else
     [Parameter]
     public int? Id { get; set; }
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        return base.OnInitializedAsync();
+        if (Id == null)
+        {
+            throw new Exception($"'{nameof(Id)}' must not be null");
+        }
+        else
+        {
+            var id = (int)Id;
+            recipe = await RecipeService.GetRecipeById(id);
+        }
     }
 
 }
