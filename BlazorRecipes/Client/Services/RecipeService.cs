@@ -1,10 +1,9 @@
 ﻿using System.Net.Http.Json;
 using BlazorRecipes.Shared.Recipes;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
 namespace BlazorRecipes.Client.Services
 {
-    public class RecipeService
+    public class RecipeService : IRecipeService
     {
         private readonly HttpClient _httpClient;
 
@@ -13,10 +12,10 @@ namespace BlazorRecipes.Client.Services
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<Recipe>?> GetAllRecipes()
+        public async Task<IEnumerable<Recipe>?> GetAllRecipesAsync()
         {
             var recipes = await _httpClient.GetFromJsonAsync<Recipe[]>("Recipes");
-            
+
             return recipes;
         }
     }
