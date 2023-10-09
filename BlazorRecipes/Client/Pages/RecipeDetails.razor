@@ -1,28 +1,36 @@
 ﻿@page "/recipe/{Id:int}"
 @using BlazorRecipes.Shared.Recipes
 
-@if (Recipe == null)
+@if (recipe == null)
 {
     <Spinner />
 }
 else
 {
-    <h1>@Recipe.Title</h1>
+    <h1>@recipe.Title</h1>
 
-    <p>@Recipe.Description</p>
+    <p>@recipe.Description</p>
 
 
 
-    @Recipe.Image
+    @recipe.Image
 
-    @Recipe.Details
+    @recipe.Details
 
-    @Recipe.Ingredients
+    @recipe.Ingredients
 
-    @Recipe.Instructions
+    @recipe.Instructions
 }
 
 @code {
-    [Parameter, EditorRequired]
-    public Recipe? Recipe { get; set; }
+    private Recipe? recipe;
+    
+    [Parameter]
+    public int? Id { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+    }
+
 }
