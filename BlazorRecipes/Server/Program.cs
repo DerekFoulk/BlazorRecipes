@@ -1,4 +1,5 @@
 using BlazorRecipes.Server;
+using BlazorRecipes.Server.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -17,7 +18,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<FakeRecipesDatastore>();
+builder.Services.AddHttpClient();
+
+builder.Services.AddSingleton<IImportRecipesService, ImportRecipesService>();
 
 var app = builder.Build();
 

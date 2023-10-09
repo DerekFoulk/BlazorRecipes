@@ -16,11 +16,9 @@ namespace BlazorRecipes.Server.Controllers
 
         private readonly IEnumerable<Recipe> _recipes;
 
-        public RecipesController(ILogger<RecipesController> logger, FakeRecipesDatastore fakeRecipesDatastore)
+        public RecipesController(ILogger<RecipesController> logger)
         {
             _logger = logger;
-            
-            _recipes = fakeRecipesDatastore.GetFakeRecipes();
         }
 
         [HttpGet]

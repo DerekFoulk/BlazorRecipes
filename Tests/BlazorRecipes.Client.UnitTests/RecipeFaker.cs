@@ -1,7 +1,7 @@
 ﻿using BlazorRecipes.Shared.Recipes;
 using Bogus;
 
-namespace BlazorRecipes.Shared
+namespace BlazorRecipes.Client.UnitTests
 {
     public sealed class RecipeFaker : Faker<Recipe>
     {
