@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRecipes.Server", "BlazorRecipes\Server\BlazorRecipes.Server.csproj", "{EB8EFDCB-7DB7-4D2D-A4C1-A5EAE2EA614B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRecipes.Server", "BlazorRecipes\Server\BlazorRecipes.Server.csproj", "{EB8EFDCB-7DB7-4D2D-A4C1-A5EAE2EA614B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRecipes.Client", "BlazorRecipes\Client\BlazorRecipes.Client.csproj", "{2A601942-3635-4267-9503-19282E359276}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRecipes.Client", "BlazorRecipes\Client\BlazorRecipes.Client.csproj", "{2A601942-3635-4267-9503-19282E359276}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRecipes.Shared", "BlazorRecipes\Shared\BlazorRecipes.Shared.csproj", "{A2E4D699-4D24-41B0-8D5A-5B5C1A3C2F0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRecipes.Shared", "BlazorRecipes\Shared\BlazorRecipes.Shared.csproj", "{A2E4D699-4D24-41B0-8D5A-5B5C1A3C2F0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{708824DE-F6AC-4EF8-85F4-7937F38C9184}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRecipes.Client.UnitTests", "Tests\BlazorRecipes.Client.UnitTests\BlazorRecipes.Client.UnitTests.csproj", "{EA82D906-0C4C-4D9C-AF36-457B60CF70E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +31,16 @@ Global
 		{A2E4D699-4D24-41B0-8D5A-5B5C1A3C2F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2E4D699-4D24-41B0-8D5A-5B5C1A3C2F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2E4D699-4D24-41B0-8D5A-5B5C1A3C2F0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA82D906-0C4C-4D9C-AF36-457B60CF70E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA82D906-0C4C-4D9C-AF36-457B60CF70E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA82D906-0C4C-4D9C-AF36-457B60CF70E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA82D906-0C4C-4D9C-AF36-457B60CF70E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EA82D906-0C4C-4D9C-AF36-457B60CF70E3} = {708824DE-F6AC-4EF8-85F4-7937F38C9184}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E42E0E49-93CD-4E2C-8570-C3509101DFB2}

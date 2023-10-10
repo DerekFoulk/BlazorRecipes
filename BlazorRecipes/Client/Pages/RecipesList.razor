@@ -1,0 +1,48 @@
+﻿@page "/recipes"
+@using BlazorRecipes.Shared.Recipes
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using BlazorRecipes.Client.Services
+@attribute [Authorize]
+@inject IRecipeService RecipeService
+
+<PageTitle>Recipes</PageTitle>
+
+<h1>Recipes</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (recipes == null)
+{
+    <Spinner />
+}
+else
+{
+    <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6">
+        @foreach (var recipe in recipes)
+        {
+            <div class="col">
+                <RecipeCard Recipe="@recipe" />
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private Recipe[]? recipes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var allRecipes = await RecipeService.GetAllRecipesAsync();
+
+            recipes = allRecipes.ToArray();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+}
