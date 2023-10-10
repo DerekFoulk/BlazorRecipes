@@ -1,5 +1,4 @@
-﻿using BlazorRecipes.Shared;
-using BlazorRecipes.Shared.Recipes;
+﻿using BlazorRecipes.Shared.Recipes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web.Resource;
@@ -14,13 +13,13 @@ namespace BlazorRecipes.Server.Controllers
     {
         private readonly ILogger<RecipesController> _logger;
 
-        private readonly IEnumerable<Recipe> _recipes;
+        private readonly List<Recipe> _recipes;
 
         public RecipesController(ILogger<RecipesController> logger, FakeRecipesDatastore fakeRecipesDatastore)
         {
             _logger = logger;
             
-            _recipes = fakeRecipesDatastore.GetFakeRecipes();
+            _recipes = fakeRecipesDatastore.GetFakeRecipes().ToList();
         }
 
         [HttpGet]
@@ -37,7 +36,53 @@ namespace BlazorRecipes.Server.Controllers
             if (recipe == null)
                 return NotFound();
 
-            return recipe;
+            return Ok(recipe);
+        }
+
+        [HttpPost]
+        public ActionResult<Recipe> Post(Recipe recipe)
+        {
+            if (recipe.Id == default)
+                recipe.Id = GetNextId();
+
+            _recipes.Add(recipe);
+            
+            return Ok(recipe);
+        }
+
+        [HttpPut]
+        public ActionResult<Recipe> Put(Recipe recipe)
+        {
+            var index = _recipes.IndexOf(recipe);
+
+            if (index == -1)
+                return BadRequest();
+
+            _recipes[index] = recipe;
+
+            return Ok(recipe);
+        }
+
+        [HttpDelete]
+        public ActionResult Delete(int id)
+        {
+            var existingRecipe = _recipes.SingleOrDefault(x => x.Id == id);
+
+            if (existingRecipe == null)
+                return BadRequest();
+
+            _recipes.Remove(existingRecipe);
+
+            return Ok();
+        }
+
+        private int GetNextId()
+        {
+            var maxId = _recipes.Max(x => x.Id);
+
+            var id = maxId + 1;
+
+            return id;
         }
     }
 }
