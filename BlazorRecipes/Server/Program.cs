@@ -1,7 +1,9 @@
 using BlazorRecipes.Server;
+using BlazorRecipes.Shared;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +20,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<FakeRecipesDatastore>();
+
+builder.Services.AddDbContext<RecipesContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("RecipesDatabase")));
 
 var app = builder.Build();
 
