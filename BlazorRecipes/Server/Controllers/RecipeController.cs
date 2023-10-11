@@ -2,6 +2,7 @@
 using BlazorRecipes.Shared.Recipes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web.Resource;
 
 namespace BlazorRecipes.Server.Controllers
@@ -23,7 +24,13 @@ namespace BlazorRecipes.Server.Controllers
         [HttpGet]
         public IEnumerable<Recipe> GetAll()
         {
-            return _recipesContext.Recipes;
+            var recipes = _recipesContext.Recipes
+                .Include(recipe => recipe.Ingredients)
+                .Include(recipe => recipe.Instructions)
+                .Include(recipe => recipe.Details)
+                .ToList();
+
+            return recipes;
         }
 
         [HttpGet("{id:int}")]
