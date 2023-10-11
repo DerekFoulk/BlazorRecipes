@@ -9,7 +9,7 @@ else
     foreach (var instruction in Instructions)
     {
         <div class="mb-3">
-            <InputText @bind-Value="instruction.Text" @onblur="OnValueChanged" class="form-control" id="instructions" />
+            <InputText @bind-Value="instruction.Text" @onblur="OnValueChangedAsync" class="form-control" id="instructions" />
         </div>
     }
 
@@ -31,10 +31,10 @@ else
     {
         Instructions?.Add(new Instruction());
 
-        await InstructionsChanged.InvokeAsync(Instructions);
+        await OnValueChangedAsync();
     }
 
-    private async Task OnValueChanged()
+    private async Task OnValueChangedAsync()
     {
         await InstructionsChanged.InvokeAsync(Instructions);
     }
