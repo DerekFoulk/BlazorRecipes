@@ -19,12 +19,12 @@ namespace BlazorRecipes.Shared.Recipes
         public string? Image { get; set; }
 
         [MinLength(1), MaxLength(50)]
-        public ICollection<Ingredient>? Ingredients { get; set; } = new List<Ingredient>();
+        public virtual ICollection<Ingredient>? Ingredients { get; set; } = new List<Ingredient>();
 
         [MinLength(1), MaxLength(50)]
-        public ICollection<Instruction>? Instructions { get; set; } = new List<Instruction>();
+        public virtual ICollection<Instruction>? Instructions { get; set; } = new List<Instruction>();
 
         [Required]
-        public Details? Details { get; set; }
+        public virtual Details? Details { get; set; }
     }
 }

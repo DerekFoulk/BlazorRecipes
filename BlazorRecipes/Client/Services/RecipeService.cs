@@ -7,22 +7,33 @@ namespace BlazorRecipes.Client.Services
 {
     public class RecipeService : IRecipeService
     {
+        private readonly ILogger<RecipeService> _logger;
         private readonly HttpClient _httpClient;
         private readonly AuthenticationStateProvider _authenticationStateProvider;
 
-        public RecipeService(HttpClient httpClient, AuthenticationStateProvider authenticationStateProvider)
+        public RecipeService(ILogger<RecipeService> logger, HttpClient httpClient, AuthenticationStateProvider authenticationStateProvider)
         {
+            _logger = logger;
             _httpClient = httpClient;
             _authenticationStateProvider = authenticationStateProvider;
         }
 
         public async Task<IEnumerable<Recipe>> GetAllRecipesAsync()
         {
-            var httpClient = await GetCorrectHttpClientAsync();
+            try
+            {
+                var httpClient = await GetCorrectHttpClientAsync();
 
-            var recipes = await httpClient.GetFromJsonAsync<Recipe[]>("Recipe") ?? Array.Empty<Recipe>();
+                var recipes = await httpClient.GetFromJsonAsync<Recipe[]>("Recipe") ?? Array.Empty<Recipe>();
 
-            return recipes;
+                return recipes;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Failed to retrieve recipes from the API");
+
+                throw;
+            }
         }
 
         private async Task<HttpClient> GetCorrectHttpClientAsync()
