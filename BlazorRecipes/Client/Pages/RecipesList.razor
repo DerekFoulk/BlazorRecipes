@@ -12,20 +12,23 @@
 }
 else
 {
-    <AuthorizeView>
-        <Authorized>
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Recipes</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group me-2">
-                        <a href="recipes/add" class="btn btn-success">
-                            <span class="oi oi-plus" aria-hidden="true"></span> Add Recipe
-                        </a>
+    if (!HideToolbar)
+    {
+        <AuthorizeView>
+            <Authorized>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Recipes</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <a href="recipes/add" class="btn btn-success">
+                                <span class="oi oi-plus" aria-hidden="true"></span> Add Recipe
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Authorized>
-    </AuthorizeView>
+            </Authorized>
+        </AuthorizeView>
+    }
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-4">
         @foreach (var recipe in recipes)
@@ -39,6 +42,9 @@ else
 
 @code {
     private Recipe[]? recipes;
+
+    [Parameter]
+    public bool HideToolbar { get; set; }
 
     protected override async Task OnInitializedAsync()
     {

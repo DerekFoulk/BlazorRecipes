@@ -1,4 +1,5 @@
-﻿@page "/recipes/edit/{RecipeId:int}"
+﻿@page "/recipes/add"
+@page "/recipes/edit/{RecipeId:int}"
 @using BlazorRecipes.Shared.Recipes
 @using BlazorRecipes.Client.Services
 @using Microsoft.AspNetCore.Authorization
@@ -39,26 +40,39 @@ else
 
                 <label class="form-label">Instructions</label>
                 <InstructionsEditor @bind-Instructions="recipe.Instructions" />
+
+                <button type="submit" class="btn btn-primary btn-">Submit</button>
             </EditForm>
         </div>
         <div class="col-6">
-            <RecipeItem @bind-Recipe="recipe" />
+            <RecipeItem @bind-Recipe="recipe" HideToolbar="true" />
         </div>
     </div>
 }
 
 @code {
     [Parameter]
-    public int RecipeId { get; set; }
+    public int? RecipeId { get; set; }
 
-    private Recipe recipe;
+    private Recipe? recipe;
 
     protected override async Task OnInitializedAsync()
     {
-        var existingRecipe = await RecipeService.GetRecipeById(RecipeId);
+        if (RecipeId == null)
+        {
+            if (recipe == null)
+            {
+                recipe = new Recipe();
+            }
+        }
+        else
+        {
+            var recipeId = (int) RecipeId;
+            var existingRecipe = await RecipeService.GetRecipeById(recipeId);
 
-        if (existingRecipe != null)
-            recipe = existingRecipe;
+            if (existingRecipe != null)
+                recipe = existingRecipe;
+        }
     }
 
     protected async Task SaveRecipe()
