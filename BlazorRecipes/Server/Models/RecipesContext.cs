@@ -1,7 +1,7 @@
 ﻿using BlazorRecipes.Shared.Recipes;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlazorRecipes.Shared
+namespace BlazorRecipes.Server.Models
 {
     public class RecipesContext : DbContext
     {

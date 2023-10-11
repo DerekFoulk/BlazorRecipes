@@ -1,4 +1,5 @@
-﻿using BlazorRecipes.Shared.Recipes;
+﻿using BlazorRecipes.Server.Models;
+using BlazorRecipes.Shared.Recipes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web.Resource;
@@ -11,26 +12,24 @@ namespace BlazorRecipes.Server.Controllers
     public class RecipeController : ControllerBase
     {
         private readonly ILogger<RecipeController> _logger;
+        private readonly RecipesContext _recipesContext;
 
-        private readonly List<Recipe> _recipes;
-
-        public RecipeController(ILogger<RecipeController> logger, FakeRecipesDatastore fakeRecipesDatastore)
+        public RecipeController(ILogger<RecipeController> logger, RecipesContext recipesContext)
         {
             _logger = logger;
-            
-            _recipes = fakeRecipesDatastore.GetFakeRecipes().ToList();
+            _recipesContext = recipesContext;
         }
 
         [HttpGet]
         public IEnumerable<Recipe> GetAll()
         {
-            return _recipes;
+            return _recipesContext.Recipes;
         }
 
         [HttpGet("{id:int}")]
         public ActionResult<Recipe> Get(int id)
         {
-            var recipe = _recipes.SingleOrDefault(x => x.Id == id);
+            var recipe = _recipesContext.Recipes.Find(id);
 
             if (recipe == null)
                 return NotFound();
@@ -42,11 +41,10 @@ namespace BlazorRecipes.Server.Controllers
         [HttpPost]
         public ActionResult<Recipe> Post(Recipe recipe)
         {
-            if (recipe.Id == default)
-                recipe.Id = GetNextId();
+            _recipesContext.Recipes.Add(recipe);
 
-            _recipes.Add(recipe);
-            
+            _recipesContext.SaveChanges();
+
             return Ok(recipe);
         }
 
@@ -54,12 +52,14 @@ namespace BlazorRecipes.Server.Controllers
         [HttpPut]
         public ActionResult<Recipe> Put(Recipe recipe)
         {
-            var index = _recipes.IndexOf(recipe);
+            var existingRecipe = _recipesContext.Recipes.Find(recipe.Id);
 
-            if (index == -1)
+            if (existingRecipe == null)
                 return BadRequest();
 
-            _recipes[index] = recipe;
+            _recipesContext.Entry(existingRecipe).CurrentValues.SetValues(recipe);
+
+            _recipesContext.SaveChanges();
 
             return Ok(recipe);
         }
@@ -68,23 +68,16 @@ namespace BlazorRecipes.Server.Controllers
         [HttpDelete]
         public ActionResult Delete(int id)
         {
-            var existingRecipe = _recipes.SingleOrDefault(x => x.Id == id);
+            var existingRecipe = _recipesContext.Recipes.Find(id);
 
             if (existingRecipe == null)
                 return BadRequest();
 
-            _recipes.Remove(existingRecipe);
+            _recipesContext.Recipes.Remove(existingRecipe);
+
+            _recipesContext.SaveChanges();
 
             return Ok();
-        }
-
-        private int GetNextId()
-        {
-            var maxId = _recipes.Max(x => x.Id);
-
-            var id = maxId + 1;
-
-            return id;
         }
     }
 }

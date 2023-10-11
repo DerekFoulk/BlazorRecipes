@@ -1,9 +1,10 @@
 using BlazorRecipes.Server;
-using BlazorRecipes.Shared;
+using BlazorRecipes.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,8 +20,6 @@ builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<FakeRecipesDatastore>();
-
 builder.Services.AddDbContext<RecipesContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("RecipesDatabase")));
 
 var app = builder.Build();
@@ -35,6 +34,24 @@ else
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+
+CreateDbIfNotExists(app);
+
+void CreateDbIfNotExists(WebApplication app)
+{
+    using var scope = app.Services.CreateScope();
+
+    try
+    {
+        var context = scope.ServiceProvider.GetRequiredService<RecipesContext>();
+        RecipesDbInitializer.Initialize(context);
+    }
+    catch (Exception ex)
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while initializing the DB");
+    }
 }
 
 app.UseSwagger();
