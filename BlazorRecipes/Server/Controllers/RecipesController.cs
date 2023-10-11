@@ -5,7 +5,6 @@ using Microsoft.Identity.Web.Resource;
 
 namespace BlazorRecipes.Server.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
@@ -39,6 +38,7 @@ namespace BlazorRecipes.Server.Controllers
             return Ok(recipe);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult<Recipe> Post(Recipe recipe)
         {
@@ -50,6 +50,7 @@ namespace BlazorRecipes.Server.Controllers
             return Ok(recipe);
         }
 
+        [Authorize]
         [HttpPut]
         public ActionResult<Recipe> Put(Recipe recipe)
         {
@@ -63,6 +64,7 @@ namespace BlazorRecipes.Server.Controllers
             return Ok(recipe);
         }
 
+        [Authorize]
         [HttpDelete]
         public ActionResult Delete(int id)
         {

@@ -1,7 +1,11 @@
 ﻿@page "/recipes/add"
 @using BlazorRecipes.Shared.Recipes
 @using BlazorRecipes.Client.Services
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
 @inject IRecipeService RecipeService
+
+<PageTitle>Add Recipe</PageTitle>
 
 <h1>Add Recipe</h1>
 

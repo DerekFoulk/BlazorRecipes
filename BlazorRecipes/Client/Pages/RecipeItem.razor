@@ -2,7 +2,6 @@
 @using BlazorRecipes.Shared.Recipes
 @using BlazorRecipes.Client.Services
 @using Microsoft.AspNetCore.Authorization
-@attribute [Authorize]
 @inject IRecipeService RecipeService
 
 @if (Recipe == null)
@@ -11,6 +10,21 @@
 }
 else
 {
+    <AuthorizeView>
+        <Authorized>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Recipes</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <a href="recipes/edit/@Recipe.Id" class="btn btn-primary">
+                            <span class="oi oi-pencil" aria-hidden="true"></span> Edit Recipe
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </Authorized>
+    </AuthorizeView>
+
     <div class="row">
         <div class="col-3">
             <img src="@Recipe.Image" class="img-fluid" alt="@Recipe.Title" />

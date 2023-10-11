@@ -1,7 +1,11 @@
 ﻿@page "/recipes/edit/{RecipeId:int}"
 @using BlazorRecipes.Shared.Recipes
 @using BlazorRecipes.Client.Services
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
 @inject IRecipeService RecipeService
+
+<PageTitle>Edit Recipe</PageTitle>
 
 <h1>Edit Recipe</h1>
 
