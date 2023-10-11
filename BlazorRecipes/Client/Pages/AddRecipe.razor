@@ -1,0 +1,65 @@
+﻿@page "/recipes/add"
+@using BlazorRecipes.Shared.Recipes
+@using BlazorRecipes.Client.Services
+@inject IRecipeService RecipeService
+
+<h1>Add Recipe</h1>
+
+@if (recipe == null)
+{
+    <Spinner />
+}
+else
+{
+    <EditForm Model="@recipe" OnValidSubmit="SaveRecipe" class="row recipe-form">
+        <DataAnnotationsValidator />
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <InputText @bind-Value="recipe.Title" class="form-control" id="title" placeholder="What are we making?" />
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <InputTextArea @bind-Value="recipe.Description" class="form-control" id="description" rows="3" placeholder="Tell us about your recipe. Do you eat this often? Who will like this recipe?" />
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Default file input example</label>
+            <InputFile @bind-Value="recipe.Image" class="form-control" id="image" accept=".jpg,.png,.gif" />
+        </div>
+        @* <div class="mb-3">
+            <label for="ingredients" class="form-label">Ingredients</label>
+            <InputText @bind-Value="recipe.Ingredients" class="form-control" id="ingredients" placeholder="Ingredient 1" />
+        </div>
+        <div class="mb-3">
+            <label for="instructions" class="form-label">Instructions</label>
+            <InputTextArea @bind-Value="recipe.Instructions" class="form-control" id="instructions" rows="3" placeholder="Give others a step-by-step guide on how to follow your recipe." />
+        </div>
+        <div class="mb-3">
+            <label for="prepTime" class="form-label">How long will it take to prep? <small>(in minutes)</small></label>
+            <InputNumber TValue="int" @bind-Value="recipe.Details!.PrepTime" class="form-control" id="prepTime" />
+        </div>
+        <div class="mb-3">
+            <label for="cookTime" class="form-label">How long will it take to cook? <small>(in minutes)</small></label>
+            <InputNumber TValue="int" @bind-Value="recipe.Details!.CookTime" class="form-control" id="cookTime" />
+        </div>
+        <div class="mb-3">
+            <label for="totalTime" class="form-label">Total Time <small>(in minutes)</small></label>
+            <InputNumber TValue="int" class="form-control" id="totalTime" disabled="disabled" value="@recipe.Details!.TotalTime" />
+        </div>
+        <div class="mb-3">
+            <label for="servings" class="form-label">Estimated Servings <small>(in minutes)</small></label>
+            <InputNumber TValue="int" @bind-Value="recipe.Details!.Servings" class="form-control" id="servings" min="1" max="10" />
+        </div> *@
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public int RecipeId { get; set; }
+
+    private Recipe recipe = new();
+
+    protected async Task SaveRecipe()
+    {
+        await RecipeService.AddOrUpdateRecipeAsync(recipe);
+    }
+}

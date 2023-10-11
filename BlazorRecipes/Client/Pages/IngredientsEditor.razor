@@ -1,0 +1,41 @@
+@using BlazorRecipes.Shared.Recipes
+
+@if (Ingredients == null)
+{
+    <Spinner />
+}
+else
+{
+    foreach (var ingredient in Ingredients)
+    {
+        <div class="mb-3">
+            <InputText @bind-Value="ingredient.Text" @onblur="OnValueChanged" class="form-control" id="ingredients" />
+        </div>
+    }
+
+    <div class="mb-3">
+        <button type="button" class="btn btn-sm btn-primary" @onclick="AddIngredientAsync">
+            <span class="oi oi-plus" aria-hidden="true"></span> Add Ingredient
+        </button>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public ICollection<Ingredient>? Ingredients { get; set; } = new List<Ingredient>();
+
+    [Parameter]
+    public EventCallback<ICollection<Ingredient>> IngredientsChanged { get; set; }
+
+    private async Task AddIngredientAsync(EventArgs args)
+    {
+        Ingredients?.Add(new Ingredient());
+
+        await IngredientsChanged.InvokeAsync(Ingredients);
+    }
+
+    private async Task OnValueChanged()
+    {
+        await IngredientsChanged.InvokeAsync(Ingredients);
+    }
+}

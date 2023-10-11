@@ -8,10 +8,11 @@ else
 {
     <div class="card">
         <img src="@Recipe.Image" class="card-img-top" alt="@Recipe.Title">
+        
         <div class="card-body">
-            <h5 class="card-title">@Recipe.Title</h5>
-            <p class="card-text">@Recipe.Description</p>
+            <h3 class="card-title h5">@Recipe.Title</h3>
         </div>
+
         @if (Recipe.Details != null)
         {
             <ul class="list-group list-group-flush">
@@ -21,8 +22,10 @@ else
                 <li class="list-group-item"><strong>Servings:</strong> <i>@Recipe.Details.Servings</i></li>
             </ul>
         }
+
         <div class="card-body">
-            <a href="recipe/@Recipe.Id" class="card-link">View Recipe</a>
+            <a href="recipes/@Recipe.Id" class="card-link">View Recipe</a>
+            <a href="recipes/edit/@Recipe.Id" class="card-link">Edit Recipe</a>
         </div>
     </div>
 }

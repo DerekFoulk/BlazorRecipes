@@ -1,0 +1,82 @@
+﻿@page "/recipes/{Id:int}"
+@using BlazorRecipes.Shared.Recipes
+@using BlazorRecipes.Client.Services
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@inject IRecipeService RecipeService
+
+@if (Recipe == null)
+{
+    <Spinner />
+}
+else
+{
+    <div class="row">
+        <div class="col-3">
+            <img src="@Recipe.Image" class="img-fluid" alt="@Recipe.Title" />
+        </div>
+        <div class="col-9">
+            <h1>@Recipe.Title</h1>
+
+            <p>@Recipe.Description</p>
+
+            <hr />
+
+            <h2 class="h4">Ingredients</h2>
+            
+            <ul>
+                @if (Recipe.Ingredients != null)
+                {
+                    foreach (var ingredient in Recipe.Ingredients)
+                    {
+                        <li>@ingredient.Text</li>
+                    }
+                }
+            </ul>
+
+            <hr />
+
+            <h2 class="h4">Instructions</h2>
+
+            <ol>
+                @if (Recipe.Instructions != null)
+                {
+                    foreach (var instruction in Recipe.Instructions)
+                    {
+                        <li>@instruction.Text</li>
+                    }
+                }
+            </ol>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    [Parameter]
+    public Recipe? Recipe { get; set; }
+
+    [Parameter]
+    public EventCallback<Recipe> RecipeChanged { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Recipe != null)
+        {
+            Id = Recipe.Id;
+        }
+        else
+        {
+            if (Id != null)
+            {
+                var id = (int)Id;
+                Recipe = await RecipeService.GetRecipeById(id);
+            }
+        }
+
+        await RecipeChanged.InvokeAsync(Recipe);
+    }
+
+}

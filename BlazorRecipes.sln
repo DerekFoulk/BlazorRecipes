@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRecipes.Shared", "Bla
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{708824DE-F6AC-4EF8-85F4-7937F38C9184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRecipes.Client.UnitTests", "Tests\BlazorRecipes.Client.UnitTests\BlazorRecipes.Client.UnitTests.csproj", "{EA82D906-0C4C-4D9C-AF36-457B60CF70E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRecipes.Client.UnitTests", "Tests\BlazorRecipes.Client.UnitTests\BlazorRecipes.Client.UnitTests.csproj", "{EA82D906-0C4C-4D9C-AF36-457B60CF70E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

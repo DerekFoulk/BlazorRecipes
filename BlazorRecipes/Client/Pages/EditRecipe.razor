@@ -1,0 +1,64 @@
+﻿@page "/recipes/edit/{RecipeId:int}"
+@using BlazorRecipes.Shared.Recipes
+@using BlazorRecipes.Client.Services
+@inject IRecipeService RecipeService
+
+<h1>Edit Recipe</h1>
+
+@if (recipe == null)
+{
+    <Spinner />
+}
+else
+{
+    <h2>@recipe.Title</h2>
+
+    <div class="row">
+        <div class="col-6">
+            <EditForm Model="@recipe" OnValidSubmit="SaveRecipe">
+                <DataAnnotationsValidator />
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <InputText @bind-Value="recipe.Title" class="form-control" id="title" placeholder="What are we making?" />
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <InputTextArea @bind-Value="recipe.Description" class="form-control" id="description" rows="3" placeholder="Tell us about your recipe. Do you eat this often? Who will like this recipe?" />
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <InputFile @bind-Value="recipe.Image" class="form-control" id="image" accept=".jpg,.png,.gif" />
+                </div>
+                
+                <label class="form-label">Ingredients</label>
+                <IngredientsEditor @bind-Ingredients="recipe.Ingredients" />
+
+                <label class="form-label">Instructions</label>
+                <InstructionsEditor @bind-Instructions="recipe.Instructions" />
+            </EditForm>
+        </div>
+        <div class="col-6">
+            <RecipeItem @bind-Recipe="recipe" />
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int RecipeId { get; set; }
+
+    private Recipe recipe;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var existingRecipe = await RecipeService.GetRecipeById(RecipeId);
+
+        if (existingRecipe != null)
+            recipe = existingRecipe;
+    }
+
+    protected async Task SaveRecipe()
+    {
+        await RecipeService.AddOrUpdateRecipeAsync(recipe);
+    }
+}
