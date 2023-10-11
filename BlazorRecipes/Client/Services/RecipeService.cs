@@ -60,21 +60,11 @@ namespace BlazorRecipes.Client.Services
 
         public async Task<Recipe?> AddOrUpdateRecipeAsync(Recipe recipe)
         {
-            try
-            {
-                var response = await _httpClient.PostAsJsonAsync("Recipe", recipe);
-                var content = await response.Content.ReadAsStringAsync();
-                var returnedRecipe = JsonSerializer.Deserialize<Recipe>(content);
+            var response = await _httpClient.PostAsJsonAsync("Recipe", recipe);
+            var content = await response.Content.ReadAsStringAsync();
+            var returnedRecipe = JsonSerializer.Deserialize<Recipe>(content);
 
-                return returnedRecipe;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-
-            return null;
+            return returnedRecipe;
         }
     }
 }
