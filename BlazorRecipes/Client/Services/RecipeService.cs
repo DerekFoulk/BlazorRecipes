@@ -62,7 +62,7 @@ namespace BlazorRecipes.Client.Services
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("Recipes", recipe);
+                var response = await _httpClient.PostAsJsonAsync("Recipe", recipe);
                 var content = await response.Content.ReadAsStringAsync();
                 var returnedRecipe = JsonSerializer.Deserialize<Recipe>(content);
 
