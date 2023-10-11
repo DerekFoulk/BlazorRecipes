@@ -44,6 +44,9 @@ else
     private Recipe[]? recipes;
 
     [Parameter]
+    public int? Count { get; set; }
+
+    [Parameter]
     public bool HideToolbar { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -52,7 +55,7 @@ else
         {
             var allRecipes = await RecipeService.GetAllRecipesAsync();
 
-            recipes = allRecipes.ToArray();
+            recipes = GetFilteredRecipes(allRecipes).ToArray();
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -60,4 +63,19 @@ else
         }
     }
 
+    private IEnumerable<Recipe> GetFilteredRecipes(IEnumerable<Recipe> originalRecipes)
+    {
+        List<Recipe> filteredRecipes;
+
+        if (Count != null)
+        {
+            filteredRecipes = originalRecipes.Take((int)Count).ToList();
+        }
+        else
+        {
+            filteredRecipes = originalRecipes.ToList();
+        }
+
+        return filteredRecipes;
+    }
 }
