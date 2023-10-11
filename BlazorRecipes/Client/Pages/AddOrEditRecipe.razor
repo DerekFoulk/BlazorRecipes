@@ -3,9 +3,11 @@
 @using BlazorRecipes.Shared.Recipes
 @using BlazorRecipes.Client.Services
 @using Microsoft.AspNetCore.Authorization
+@using Azure.Storage.Blobs
 @attribute [Authorize]
 @inject IRecipeService RecipeService
 @inject NavigationManager NavigationManager
+@inject ILogger<AddOrEditRecipe> Logger
 
 <PageTitle>Edit Recipe</PageTitle>
 
@@ -33,7 +35,7 @@ else
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
-                    <InputFile @bind-Value="recipe.Image" class="form-control" id="image" accept=".jpg,.png,.gif" />
+                    <FileUpload2 />
                 </div>
                 
                 <label class="form-label">Ingredients</label>

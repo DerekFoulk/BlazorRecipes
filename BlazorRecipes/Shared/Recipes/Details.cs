@@ -10,11 +10,9 @@ namespace BlazorRecipes.Shared.Recipes
         public int Id { get; set; }
 
         [Required]
-        [Range(typeof(TimeSpan), "00:00", "12:00")]
         public TimeSpan PrepTime { get; set; }
 
         [Required]
-        [Range(typeof(TimeSpan), "00:00", "72:00")]
         public TimeSpan CookTime { get; set; }
 
         [JsonIgnore]
