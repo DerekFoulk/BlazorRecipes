@@ -1,9 +1,20 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>BlazorRecipes</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="row text-center">
+    <div class="col">
+        <h1>Welcome to Blazor Recipes!</h1>
 
-Welcome to your new app.
+        <p>This app was built using .NET Blazor, EF Core, SQL Server and Azure. Please login to add recipes and help me learn how to cook!</p>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+        <a href="recipes/add" class="btn btn-primary">Create your first recipe</a>
+        <a href="recipes" class="btn btn-primary">Browse our library of existing recipes</a>
+    </div>
+</div>
+
+<div class="row text-center">
+    <div class="col">
+        <RecipesList />
+    </div>
+</div>
