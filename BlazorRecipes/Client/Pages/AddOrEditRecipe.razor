@@ -5,6 +5,7 @@
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize]
 @inject IRecipeService RecipeService
+@inject NavigationManager NavigationManager
 
 <PageTitle>Edit Recipe</PageTitle>
 
@@ -77,6 +78,17 @@ else
 
     protected async Task SaveRecipe()
     {
-        await RecipeService.AddOrUpdateRecipeAsync(recipe);
+        if (recipe == null)
+            throw new Exception("Recipe must not be null");
+
+        var newRecipe = await RecipeService.AddOrUpdateRecipeAsync(recipe);
+
+        if (newRecipe != null)
+            NavigateToItem(newRecipe.Id);
+    }
+
+    private void NavigateToItem(int id)
+    {
+        NavigationManager.NavigateTo($"/recipes/{id}");
     }
 }
