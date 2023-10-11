@@ -20,7 +20,7 @@ namespace BlazorRecipes.Client.Services
         {
             var httpClient = await GetCorrectHttpClientAsync();
 
-            var recipes = await httpClient.GetFromJsonAsync<Recipe[]>("Recipes") ?? Array.Empty<Recipe>();
+            var recipes = await httpClient.GetFromJsonAsync<Recipe[]>("Recipe") ?? Array.Empty<Recipe>();
 
             return recipes;
         }
@@ -53,7 +53,7 @@ namespace BlazorRecipes.Client.Services
         {
             var httpClient = await GetCorrectHttpClientAsync();
 
-            var recipe = await httpClient.GetFromJsonAsync<Recipe>($"Recipes/{recipeId}");
+            var recipe = await httpClient.GetFromJsonAsync<Recipe>($"Recipe/{recipeId}");
 
             return recipe;
         }

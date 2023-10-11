@@ -8,13 +8,13 @@ namespace BlazorRecipes.Server.Controllers
     [ApiController]
     [Route("[controller]")]
     [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
-    public class RecipesController : ControllerBase
+    public class RecipeController : ControllerBase
     {
-        private readonly ILogger<RecipesController> _logger;
+        private readonly ILogger<RecipeController> _logger;
 
         private readonly List<Recipe> _recipes;
 
-        public RecipesController(ILogger<RecipesController> logger, FakeRecipesDatastore fakeRecipesDatastore)
+        public RecipeController(ILogger<RecipeController> logger, FakeRecipesDatastore fakeRecipesDatastore)
         {
             _logger = logger;
             
